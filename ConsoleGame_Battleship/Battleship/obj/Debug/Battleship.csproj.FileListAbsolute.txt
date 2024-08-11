@@ -1,0 +1,7 @@
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_Battleship\Battleship\bin\Debug\PodmornicaV4.exe.config
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_Battleship\Battleship\bin\Debug\PodmornicaV4.exe
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_Battleship\Battleship\bin\Debug\PodmornicaV4.pdb
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_Battleship\Battleship\obj\Debug\Battleship.csproj.AssemblyReference.cache
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_Battleship\Battleship\obj\Debug\Battleship.csproj.CoreCompileInputs.cache
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_Battleship\Battleship\obj\Debug\PodmornicaV4.exe
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_Battleship\Battleship\obj\Debug\PodmornicaV4.pdb

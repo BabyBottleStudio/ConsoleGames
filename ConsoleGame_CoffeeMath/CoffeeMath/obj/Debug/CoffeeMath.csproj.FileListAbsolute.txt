@@ -1,0 +1,7 @@
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_CoffeeMath\CoffeeMath\bin\Debug\CoffeeMath V4.exe.config
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_CoffeeMath\CoffeeMath\bin\Debug\CoffeeMath V4.exe
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_CoffeeMath\CoffeeMath\bin\Debug\CoffeeMath V4.pdb
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_CoffeeMath\CoffeeMath\obj\Debug\CoffeeMath.csproj.AssemblyReference.cache
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_CoffeeMath\CoffeeMath\obj\Debug\CoffeeMath.csproj.CoreCompileInputs.cache
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_CoffeeMath\CoffeeMath\obj\Debug\CoffeeMath V4.exe
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_CoffeeMath\CoffeeMath\obj\Debug\CoffeeMath V4.pdb
