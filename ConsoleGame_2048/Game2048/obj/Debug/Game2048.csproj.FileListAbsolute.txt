@@ -1,0 +1,7 @@
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_2048\Game2048\bin\Debug\2048_v3.exe.config
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_2048\Game2048\bin\Debug\2048_v3.exe
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_2048\Game2048\bin\Debug\2048_v3.pdb
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_2048\Game2048\obj\Debug\Game2048.csproj.AssemblyReference.cache
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_2048\Game2048\obj\Debug\Game2048.csproj.CoreCompileInputs.cache
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_2048\Game2048\obj\Debug\2048_v3.exe
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_2048\Game2048\obj\Debug\2048_v3.pdb

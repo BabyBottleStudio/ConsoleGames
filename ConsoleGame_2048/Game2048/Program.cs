@@ -3,116 +3,171 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
-namespace Game2048
+namespace Game2048_v6
 {
-    // version 03
-
     class Grid
     {
-        private int[,] grid = new int[4, 4];
+        private int[,] grid;
+
+
+        private int gameGridSize = 4;
+        private int gameWinCondition = 2048;
+
         private List<(int, int)> emptyFieldsCoordsList = new List<(int x, int y)>();
 
-        public List<int> workingList = new List<int>();
+        private List<int> workingList = new List<int>();
 
-        public bool[] isRowChangedBoolArr = new bool[4]; // ovo resiti inicijalizacijom// dodati getere i settere
+        private bool[] _isGridChangedBoolArr;
+        private bool _isGridChanged;
 
-
+        private bool isWin = false;
 
         private Random rand = new Random();
+        public int score;
 
-        public Grid()
+
+        /// <summary>
+        /// Intilize the grid. If gridSize is passed, the grid will have that dimension. If not, default of 4 will be applied. winCondition signifies when the player is going to win.
+        /// </summary>
+        /// <param name="gridSize"></param>
+        /// <param name="winCondition"></param>
+        public Grid(int gridSize = 4, int winCondition = 2048)
         {
+            if (gridSize < 4)
+            {
+                gridSize = 4;
+                //gameGridSize = 4;
+            }
+            else if (gridSize > 16)
+            {
+                gridSize = 16;
+            }
+
+            gameGridSize = gridSize;
+
+            grid = new int[gameGridSize, gameGridSize];
             grid.Initialize();
-            isRowChangedBoolArr.Initialize();
+
+            _isGridChangedBoolArr = new bool[gameGridSize];
+            _isGridChangedBoolArr.Initialize();
+
+            _isGridChanged = false;
+            isWin = false;
+            score = 0;
+            gameWinCondition = winCondition;
         }
 
 
-        public void ResetGrid()
+        public bool IsGridChanged()
         {
-
-            for (int i = 0; i < grid.GetLength(0); i++)
-            {
-                for (int j = 0; j < grid.GetLength(1); j++)
-                {
-                    grid[i, j] = 0;
-                }
-            }
+            _isGridChanged = _isGridChangedBoolArr.Any(x => x == true);
+            return _isGridChanged;
         }
 
-        private void ResetLine(int index, int direction)
+        public bool IsWin
         {
-            switch (direction)
-            {
-                case 4:
-                case 6:
-                    for (int i = 0; i < grid.GetLength(1); i++)
-                    {
-                        grid[index, i] = 0;
-                    }
-                    break;
-                case 2:
-                case 8:
-                    for (int i = 0; i < grid.GetLength(0); i++)
-                    {
-                        grid[i, index] = 0;
-                    }
-                    break;
-            }
+            get { return isWin; }
+            set { isWin = value; }
+        }
 
 
+        public int GameGridSize
+        {
+            get { return gameGridSize; }
         }
 
         public void DisplayGrid()
         {
-
-
-            for (int i = 0; i < grid.GetLength(0); i++)
+            for (int i = 0; i < gameGridSize; i++)
             {
-                Console.WriteLine(" ---- ---- ---- ---- ");
-                Console.WriteLine("|    |    |    |    |");
-                for (int j = 0; j < grid.GetLength(1); j++)
-                {
 
+                // NODE 1 - displays the horizontal lines of the grid
+                for (int j = 0; j < gameGridSize; j++)
+                {
+                    Console.Write(" ----");
+                }
+                Console.WriteLine();
+                // ------------------------------------------------
+
+
+                // NODE 2 - displays the vertical lines of the grid
+                for (int j = 0; j < gameGridSize; j++)
+                {
+                    Console.Write("|    ");
+                }
+                Console.Write("|");
+                Console.WriteLine();
+                // ------------------------------------------------
+
+                // NODE 3 - displays the line with numbers 
+                for (int j = 0; j < gameGridSize; j++)
+                {
                     string numberToDisplay = grid[i, j] == 0 ? "    " : grid[i, j].ToString().PadLeft(4);
                     Console.Write($"|{numberToDisplay}");
                 }
                 Console.WriteLine("|");
+                // ------------------------------------------------
+
             }
-            Console.WriteLine(" ---- ---- ---- ---- ");
+
+
+            // NODE 4 - displays the horizontal lines of the grid at the end
+            for (int i = 0; i < gameGridSize; i++)
+            {
+                Console.Write(" ----");
+            }
+            Console.WriteLine();
+
+            Console.WriteLine($"Score: {score}");
+            // ------------------------------------------------
+
         }
 
-
-
-        public void CollectEmptyCoordinates()
+        /// <summary>
+        /// By defaullt (no pareameters), resets the grid to 0 values. If testNum parameter is passed, the grid will be filled with that value.
+        /// </summary>
+        /// <param name="testNum"></param>
+        public void ResetGrid(int testNum = 0)
         {
-            emptyFieldsCoordsList.Clear();
 
             for (int i = 0; i < grid.GetLength(0); i++)
             {
                 for (int j = 0; j < grid.GetLength(1); j++)
                 {
+                    grid[i, j] = testNum;
+                }
+            }
+
+            _isGridChanged = false;
+            score = 0;
+        }
+
+
+        /// <summary>
+        /// This method goes through the grid and collects the coordinates with the value of zero in the "emptyFieldsCoordsList"
+        /// </summary>
+        private void CollectEmptyCoordinates() // | 8||}o  Ovde ima lufta za refaktoring
+        {
+            emptyFieldsCoordsList.Clear();
+
+            for (int i = 0; i < gameGridSize; i++)
+            {
+                for (int j = 0; j < gameGridSize; j++)
+                {
                     if (grid[i, j] == 0)
                     {
-                        emptyFieldsCoordsList.Add((i, j)); // mozda je i (j, i) 
+                        emptyFieldsCoordsList.Add((i, j));
                     }
                 }
             }
         }
 
-
-        public void GenerateNewNumber()
-        {
-            var fieldToEdit = PickRandomFromList();
-            // izaberi nasumicnu koordinatu koja je slobodna
-
-            Console.WriteLine($"Izabrana koordinata za upisivane broja je: {fieldToEdit}");
-
-            int generatedInt = rand.Next(1000) % 2 == 0 ? 2 : 4; // ukoliko izgenerise neparan broj, vraca 4 a ako izgenerise paran vraca 2
-
-            grid[fieldToEdit.x, fieldToEdit.y] = generatedInt; // upisivanje vrednosti 2 ili 4
-        }
-
+        /// <summary>
+        /// This method picks the random values from the "emptyFieldsCoordsList". Returns them as a tupple.
+        /// </summary>
+        /// <returns></returns>
         private (int x, int y) PickRandomFromList()
         {
             CollectEmptyCoordinates();
@@ -123,336 +178,496 @@ namespace Game2048
             return emptyFieldsCoordsList[indeks];
         }
 
-        private bool IsLineEmpty(int lineIndex, int direction)
+        /// <summary>
+        /// This method generates the value of 2 or 4, picks random coordinates from the list, and writes the value into the grid.
+        /// </summary>
+        public void GenerateNewNumber()
         {
-            for (int i = 0; i < grid.GetLength(1); i++)
-            {
-                if (direction == 4 || direction == 6)
-                {
-                    if (grid[lineIndex, i] != 0)
-                    {
-                        return false;
-                    }
-                }
-                else if (direction == 2 || direction == 8)
-                {
-                    if (grid[i, lineIndex] != 0)
-                    {
-                        return false;
-                    }
-                }
+            var fieldToEdit = PickRandomFromList();
+            // izaberi nasumicnu koordinatu koja je slobodna
 
+
+            //Console.WriteLine($"Izabrana koordinata za upisivane broja je: {fieldToEdit}");
+            int generatedInt = rand.Next(1000) % 2 == 0 ? 2 : 4; // ukoliko izgenerise neparan broj, vraca 4 a ako izgenerise paran vraca 2
+
+            grid[fieldToEdit.x, fieldToEdit.y] = generatedInt; // upisivanje vrednosti 2 ili 4
+        }
+
+
+
+        /// <summary>
+        /// This method checks if the line is empty or not. Index parameter defines which line is checked and the direction defines if it is row or a column.
+        /// </summary>
+        /// <param name="lineIndex"></param>
+        /// <param name="direction"></param>
+        /// <returns></returns>
+        public bool IsLineEmpty(int lineIndex, int direction)
+        {
+            switch (direction)
+            {
+                case -1:
+                case 1:
+                    // return Enumerable.Range(0, gameGridSize).All(i => grid[lineIndex, i] != 0);
+
+                    for (int i = 0; i < gameGridSize; i++)
+                    {
+                        if (grid[lineIndex, i] != 0)
+                        {
+                            return false;
+                        }
+                    }
+                    break;
+
+                case -2:
+                case 2:
+                    // return Enumerable.Range(0, gameGridSize).All(i => grid[i, lineIndex] != 0); // zakomentarisano jer jos uvek ne kontam ovo sto posto!
+                    for (int i = 0; i < gameGridSize; i++)
+                    {
+                        if (grid[i, lineIndex] != 0)
+                        {
+                            return false;
+                        }
+                    }
+                    break;
             }
             return true;
-        }
+        } // refaktorisano
 
-        private void CollectValuesToWorkingList(int index, int direction)
+
+        /// <summary>
+        /// Collects non zero values from the row or column, depending on the given direction. Returns true if it collects any element and false on empty result.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="direction"></param>
+        private bool CollectNonZeroElements(int index, int direction)
         {
+            workingList.Clear();
             switch (direction)
             {
-                case 4:
-                case 6:
-                    for (int i = 0; i < grid.GetLength(1); i++)
-                    {
-                        workingList.Add(grid[index, i]);
-                        Console.WriteLine($"Napunjavam: {grid[index, i]}");
-                    }
-                    // za vrednost 6 treba da se uradi reverse. To se desava kasnije
+                case -1:
+                case 1:
+                    workingList = Enumerable.Range(0, gameGridSize)
+                                            .Select(i => grid[index, i])
+                                            .Where(value => value > 0)
+                                            .ToList();
+
+                    // prvi red pravi loop od 0 do gameGridSize - 1
+                    // drugi red selektuje vrednost iz grida // Za svaki indeks i, uzima se vrednost iz reda index u koloni i
+                    // Filtriraju se samo vrednosti koje su veće od nule
+                    // Pretvara se rezultujuća kolekcija u listu
                     break;
+
+                case -2:
                 case 2:
-                case 8:
-                    for (int i = 0; i < grid.GetLength(0); i++) // ovaj puni odozgo na dole, to je default vrednost 2 kad se sabira u tom smeru. 8 je suprotno
-                    {
-                        workingList.Add(grid[i, index]);
-                        Console.WriteLine($"Napunjavam: {grid[index, i]}");
-                    }
-                    break;
-            }
-        }
-
-        // funkcija za pomeranje reda
-        // test da li je red prazan
-        // jedan element
-        // vise elemenata
-        public bool ShiftLine(int index, int direction)
-        {
-            if (IsLineEmpty(index, direction)) // ukoliko je red prazan preskoci ga, odnosno iskoci iz funkcije
-            {
-                return false;
-            }
-
-            // punjenje vrednostima workingList!!!
-            CollectValuesToWorkingList(index, direction);
-
-            if (direction == 6 || direction == 2)
-            {
-                workingList.Reverse();
-                AddSameNumsInTheLine();
-                workingList.Reverse();
-            }
-            else if (direction == 4 || direction == 8)
-            {
-                AddSameNumsInTheLine();
-            }
-
-            ExpandListWithZeros(direction, grid.GetLength(1));
-
-            bool isLineChanged = IsLineChanged(index, direction);
-
-            if (isLineChanged)
-            {
-                ResetLine(index, direction);
-
-
-                if (direction == 6 || direction == 8)
-                {
-                    for (int i = 0; i < grid.GetLength(1); i++)
-                    {
-                        grid[index, i] = workingList[i];
-                    }
-                }
-                else if (direction == 4 || direction == 2)
-                {
-                    for (int i = 0; i < grid.GetLength(1); i++)
-                    {
-                        grid[i, index] = workingList[i];
-                    }
-                }
-
-                return true;
-            }
-
-            return isLineChanged;
-        }
-
-
-        public bool IsLineChanged(int index, int direction)
-        {
-            //ubaci direction kao opciju
-
-            switch (direction)
-            {
-                case 4:
-                case 6:
-                    for (int i = 0; i < grid.GetLength(1); i++)
-                    {
-                        if (workingList[i] != grid[index, i])
-                        {
-                            Console.WriteLine("Nisu isti!!!");
-                            return true;
-                        }
-                    }
-                    // za vrednost 6 treba da se uradi reverse. To se desava kasnije
-                    break;
-                case 2:
-                case 8:
-                    for (int i = 0; i < grid.GetLength(0); i++) // ovaj puni odozgo na dole, to je default vrednost 2 kad se sabira u tom smeru. 8 je suprotno
-                    {
-                        if (workingList[i] != grid[i, index])
-                        {
-                            Console.WriteLine("Nisu isti!!!");
-                            return true;
-                        }
-                    }
+                    workingList = Enumerable.Range(0, gameGridSize)
+                                            .Select(i => grid[i, index])
+                                            .Where(value => value > 0)
+                                            .ToList();
                     break;
             }
 
-            return false;
-
-            //            return temp.Any(x => x == true);
+            return workingList.Count > 0 ? true : false;
         }
 
-
-
-        public void ExpandListWithZeros(int direction, int rowLength)
+        private void ElementAdition()
         {
-            int size = workingList.Count();
-
-
-            for (int i = 0; i < (rowLength - size); i++)
+            for (int i = 0; i < workingList.Count - 1; i++)
             {
-                if (direction == 6 || direction == 8)
+                if (workingList[i] == workingList[i + 1])
                 {
-                    workingList.Insert(0, 0);
+                    score += workingList[i];
+                    workingList[i] *= 2;
+                    workingList[i + 1] = 0;
                 }
-                else if (direction == 4 || direction == 2)
+            }
+        }
+
+        private void AddZerosToList()
+        {
+            int currentWorkingListSize = workingList.Count(); // belezi koliko ima elemenata koji nisu nula - izbrisane su u prethodnom redu
+
+            // test da li je red pun
+            // dodavanje nula ako mu fali
+            if (workingList.Count < gameGridSize)
+            {
+                for (int i = 0; i < gameGridSize - currentWorkingListSize; i++)
                 {
                     workingList.Add(0);
                 }
             }
         }
 
-        public void AddSameNumsInTheLine()
+        private bool IsRowChanged(int index, int direction)
         {
+            switch (direction)
+            {
+                case -1:
+                case 1:
+                    for (int i = 0; i < gameGridSize; i++)
+                    {
+                        if (grid[index, i] != workingList[i])
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
 
-            workingList.RemoveAll(x => x == 0); // brise sve nule
+                case -2:
+                case 2:
 
-            if (workingList.Count > 1)
+                    for (int i = 0; i < gameGridSize; i++)
+                    {
+                        if (grid[i, index] != workingList[i])
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+            }
+            return false;
+        }
+
+        private void WriteFromListToLine(int index, int direction)
+        {
+            switch (direction)
+            {
+                case -1:
+                case 1:
+                    // upisivanje workingliste u grid liniju
+                    for (int i = 0; i < gameGridSize; i++)
+                    {
+                        grid[index, i] = workingList[i];
+                    }
+                    break;
+
+                case -2:
+                case 2:
+                    // upisivanje workingliste u grid liniju
+                    for (int i = 0; i < gameGridSize; i++)
+                    {
+                        grid[i, index] = workingList[i];
+                    }
+                    break;
+            }
+
+        }
+
+
+        public void ShiftLineHorizontal(int index, int direction)
+        {
+            _isGridChangedBoolArr[index] = false;
+
+            if (!CollectNonZeroElements(index, direction))
+                return;
+
+            if (direction > 0)
+                workingList.Reverse(); // ovde se obrne da bi matematika dole bila ista
+
+            if (workingList.Count > 1) // ovo je deo koji ce da sabere susedne brojeve
+            {
+                ElementAdition();
+            }
+
+            workingList.RemoveAll(x => x == 0);
+            AddZerosToList();
+
+
+            if (direction > 0)
+                workingList.Reverse(); // ponovno obrtanje niza da se vrati original
+
+
+            _isGridChangedBoolArr[index] = IsRowChanged(index, direction);
+
+
+            WriteFromListToLine(index, direction);
+
+        }
+
+        public void ShiftLineVertical(int index, int direction)
+        {
+            // ovde moze da dodje deo gde se sabiraju brojevi
+            // horizontalno / red - sakuplja s leva na desno, sabira i kontrolise sa levo na desno
+            // sabiranje treba da se desava sa brojem sa desne strane 
+            // 4400 => 8000
+            // 2244 => 4800
+
+            workingList.Clear();
+
+            _isGridChangedBoolArr[index] = false;
+
+            for (int i = 0; i < gameGridSize; i++)
+            {
+                var currentFieldValue = grid[i, index]; // promena ovde | 8||}o
+                if (currentFieldValue > 0)
+                {
+                    //Console.WriteLine($"Upisano {currentFieldValue}");
+                    workingList.Add(currentFieldValue);
+                }
+            }
+
+            if (workingList.Count == 0)
+            {
+                //Console.WriteLine("Prazna kolona");
+                return;
+            }
+
+            if (direction == 2)  // promena ovde | 8||}o
+                workingList.Reverse(); // ovde se obrne da bi matematika dole bila ista
+
+            if (workingList.Count > 1) // ovo je deo koji ce da sabere susedne brojeve
             {
                 for (int i = 0; i < workingList.Count - 1; i++)
                 {
                     if (workingList[i] == workingList[i + 1])
                     {
+                        score += workingList[i];
                         workingList[i] *= 2;
                         workingList[i + 1] = 0;
                     }
                 }
-                workingList.RemoveAll(x => x == 0); // brise sve nule
             }
 
-            //return workingList;
-        }
+            workingList.RemoveAll(x => x == 0);
 
+            int currentWorkingListSize = workingList.Count();
 
-        //public void MoveElements(int pravac)
-        //{
-        //    // ovo sad mora da ide po redovima :)
-
-        //    for (int row = 0; row < 4; row++) // hardkodovana cetvorka!!!!!!
-        //    {
-        //        if (IsLineEmpty(row))
-        //        {
-        //            break;
-        //        }
-
-        //        // postoji elegantniji nacin da se ovo resi
-        //        List<int> tempList = new List<int>();
-
-        //        for (int j = 0; j < 4; j++) // hardkodovano!!!!!!!!
-        //        {
-        //            tempList.Add(grid[row, j]);
-        //        }
-
-        //        tempList.RemoveAll(x => x == 0);
-
-        //        if (pravac == 1)
-        //            tempList.Reverse(); // ukoliko treba da se nalepi na desnu stranu, da ne bi pisao ceo loop koji sabira unazad, ovde obrnemo niz, odradimo matematiku u lupu dole i onda se reversuje nazad.
-
-        //        if (tempList.Count > 0) // ako moras ovoliko da branis kod, nesto ne valja
-        //        {
-        //            for (int i = 0; i < tempList.Count - 1; i++)
-        //            {
-        //                if (tempList[i] == tempList[i + 1])
-        //                {
-        //                    tempList[i] *= 2;
-        //                    tempList[i + 1] = 0;
-        //                }
-        //            }
-        //        }
-
-        //        if (tempList.Count > 0) // ako moras ovoliko da branis kod, nesto ne valja
-        //        {
-        //            tempList.RemoveAll(x => x == 0); // ovo radi dva puta a nebi trebalo
-
-        //        if (pravac == 1)
-        //            tempList.Reverse(); // ponovo se reversuje array da se vrati na prvobitno stanje
-
-        //            ResetRow(row);
-
-        //            for (int i = 0; i < tempList.Count; i++)
-        //            {
-        //                grid[row, i] = tempList[i];
-        //            }
-        //        }
-
-
-        //        /*
-        //        switch (pravac)
-        //        {
-        //            case 1:
-        //                int j = tempList.Count - 1;
-        //                for (int i = grid.GetLength(row) - 1; i > (grid.GetLength(row) - 1 - tempList.Count); i--)
-        //                {
-        //                    grid[row, i] = tempList[j];
-        //                    j--;
-        //                }
-        //                break;
-
-        //            case -1:
-        //                for (int i = 0; i < tempList.Count; i++)
-        //                {
-        //                    grid[row, i] = tempList[i];
-        //                }
-        //                break;
-
-        //        }*/
-        //    }
-        //}
-
-
-        public int ValidateUserInput()
-        {
-            ConsoleKeyInfo userInput = Console.ReadKey();
-
-            switch (userInput.Key)
+            // test da li je red pun
+            // dodavanje nula ako mu fali
+            if (workingList.Count < gameGridSize)
             {
-                case ConsoleKey.UpArrow:
-                    return 8;
-                case ConsoleKey.DownArrow:
-                    return 2;
-                case ConsoleKey.LeftArrow:
-                    return 4;
-                case ConsoleKey.RightArrow:
-                    return 6;
-                default:
-                    return 0;
+                for (int i = 0; i < gameGridSize - currentWorkingListSize; i++)
+                {
+                    workingList.Add(0);
+                }
+            }
+
+            if (direction == 2) // promena ovde | 8||}o
+                workingList.Reverse(); // ponovno obrtanje niza da se vrati original
+
+            // ovde treba da se uradi poredjenje da li se red, nakon userInputa promenio ili ne.
+            // Taj deo treba da vrati varijabilu "true" or "false".
+            // False sprecava generaciju novih brojeva jer se nista nije promenilo
+            // True dozvoljava generaciju novih brojeva
+
+            // compare workingList and gridLine
+            for (int i = 0; i < gameGridSize; i++)
+            {
+                if (grid[i, index] != workingList[i])  // promena ovde | 8||}o
+                {
+                    _isGridChangedBoolArr[index] = true;
+                    break;
+                }
+            }
+
+
+
+            // upisivanje workingliste u grid liniju
+            for (int i = 0; i < gameGridSize; i++)
+            {
+                grid[i, index] = workingList[i];  // promena ovde | 8||}o
+            }
+
+            //for (int i = 0; i < workingList.Count; i++)
+            //{
+            //    Console.Write(workingList[i]);
+            //}
+            //Console.WriteLine();
+        }
+
+
+        /// <summary>
+        /// Method checks if there is a filed with gameWinCondition. Default is value of 2048.
+        /// </summary>
+        public void IsThereAWin()
+        {
+            foreach (var obj in grid)
+            {
+                if (obj == gameWinCondition)
+                {
+                    isWin = true;
+                }
+            }
+
+        }
+
+
+        /// <summary>
+        /// This method checks if there is any valid move left. It goes through each row and column, compares the consequent members and returns the bool.
+        /// </summary>
+        /// <returns></returns>
+        public bool NoMoreMovesLeft()
+        {
+            //checked rows;
+            for (int i = 0; i < gameGridSize; i++)
+            {
+                int lastObj = 0;
+                for (int j = 0; j < gameGridSize; j++)
+                {
+                    if (grid[i, j] == 0 || grid[i, j] == lastObj)
+                    {
+                        //Console.WriteLine("Ima jos poteza u horizontali");
+                        return false;
+                    }
+                    else
+                    {
+                        lastObj = grid[i, j];
+                    }
+                }
+            }
+
+            // check columns
+            for (int i = 0; i < gameGridSize; i++)
+            {
+                int lastObj = 0;
+                for (int j = 0; j < gameGridSize; j++) // ovde ne mora da se testira nula jer je vec istestirao na horizontalama
+                {
+                    if (grid[j, i] == lastObj)
+                    {
+                        //Console.WriteLine("Ima jos poteza u vertikali");
+                        return false;
+                    }
+                    else
+                    {
+                        lastObj = grid[j, i];
+                    }
+                }
+            }
+            return true;
+        }
+
+
+        public int ValidateUserInput() // testirano. Radi!
+        {
+            while (true)
+            {
+                // vrednosti 1 i 2 oznacavaju kretanje od nize ka visoj koordinati (0 => 3)
+                // vrednosti -1 i -2 oznacavaju kretanje od nize ka visoj koordinati (3 => 0)
+
+
+                ConsoleKeyInfo userInput = Console.ReadKey();
+
+                switch (userInput.Key)
+                {
+                    case ConsoleKey.UpArrow:
+                    case ConsoleKey.W:
+                    case ConsoleKey.NumPad8:
+                        //Console.WriteLine(userInput.Key);
+                        return -2;
+                    case ConsoleKey.DownArrow:
+                    case ConsoleKey.S:
+                    case ConsoleKey.NumPad2:
+                        //Console.WriteLine(userInput.Key);
+                        return 2;
+                    case ConsoleKey.LeftArrow:
+                    case ConsoleKey.A:
+                    case ConsoleKey.NumPad4:
+                        //Console.WriteLine(userInput.Key);
+                        return -1;
+                    case ConsoleKey.RightArrow:
+                    case ConsoleKey.D:
+                    case ConsoleKey.NumPad6:
+                        //Console.WriteLine(userInput.Key);
+                        return 1;
+                    default:
+                        Console.WriteLine();
+                        Console.WriteLine("Invalid input. Use arrow keys, WASD or numpad 8642 to move blocks.");
+                        break;
+                }
             }
         }
-    }
 
+    }
 
     class Program
     {
         static void Main(string[] args)
         {
-            Grid theGrid = new Grid();
 
+            Console.SetWindowSize(30, 15);
+            //Console.SetWindowPosition(100,100);
 
-            bool checkForChanges = true;
+            Grid theGrid = new Grid(4, 2048);
+            int userInput;
+
+            theGrid.GenerateNewNumber();
+            theGrid.GenerateNewNumber();
+
+            theGrid.DisplayGrid();
+            bool winHappened = false;
 
             while (true)
             {
-                if (checkForChanges)
-                {
-                    theGrid.GenerateNewNumber();
-                    theGrid.GenerateNewNumber();
-                }
+                userInput = theGrid.ValidateUserInput();
+                Console.WriteLine(userInput);
 
+                for (int i = 0; i < theGrid.GameGridSize; i++)
+                {
+                    theGrid.ShiftLineHorizontal(i, userInput);
+                }
+                Console.Clear();
 
                 theGrid.DisplayGrid();
-                int userInput;
-
-                while (true)
+                Thread.Sleep(250);
+                // test da li se nesto promenilo
+                if (theGrid.IsGridChanged())
                 {
-                    Console.WriteLine("Use arrows to move the numbers!");
+                    theGrid.GenerateNewNumber();
+                }
 
-                    userInput = theGrid.ValidateUserInput();
 
-                    if (userInput > 0)
+                Console.Clear();
+                theGrid.DisplayGrid();
+
+                if (theGrid.NoMoreMovesLeft())
+                {
+                    break;
+                }
+
+
+                theGrid.IsThereAWin();
+
+                if (theGrid.IsWin && winHappened == false)
+                {
+                    bool endSession = false;
+                    while (true)
                     {
+                        Console.WriteLine("You won!!!");
+                        Console.WriteLine("Continue to play? (y/n)");
+
+                        var continueToPlay = Console.ReadKey().KeyChar;
+
+                        if (continueToPlay == 'y')
+                        {
+                            winHappened = true;
+
+                            Console.WriteLine();
+                            Console.WriteLine("Please continue to play. \nUse arrow keys, WASD or numpad 8642 to move blocks.");
+
+                            break;
+                        }
+                        else if (continueToPlay == 'n')
+                        {
+                            endSession = true;
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid input.");
+                        }
+                    }
+
+                    if (endSession)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Good Game!!!");
                         break;
                     }
-                    else
-                    {
-                        Console.WriteLine("Invalid input!");
-                    }
                 }
-                for (int i = 0; i < 4; i++)
-                {
-                    theGrid.isRowChangedBoolArr[i] = theGrid.ShiftLine(i, userInput);
-                }
-                checkForChanges = theGrid.isRowChangedBoolArr.Any(x => x == true);
-
-                //Console.Clear();
             }
-
-
-
-            // dodati funckiju za gore i dole
-            // sabiranje bodova
-            // gameOver
-            // unique boje za brojeve
-
+            Console.WriteLine();
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.WriteLine("GameOver!");
+            Console.ResetColor();
 
 
         }
