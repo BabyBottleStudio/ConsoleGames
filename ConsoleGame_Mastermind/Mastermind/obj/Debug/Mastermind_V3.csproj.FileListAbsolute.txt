@@ -1,0 +1,7 @@
+C:\Users\Miljan\source\repos\PetljaUPetlji\Mastermind_V3\bin\Debug\Mastermind_V3.exe.config
+C:\Users\Miljan\source\repos\PetljaUPetlji\Mastermind_V3\bin\Debug\Mastermind_V3.exe
+C:\Users\Miljan\source\repos\PetljaUPetlji\Mastermind_V3\bin\Debug\Mastermind_V3.pdb
+C:\Users\Miljan\source\repos\PetljaUPetlji\Mastermind_V3\obj\Debug\Mastermind_V3.csproj.AssemblyReference.cache
+C:\Users\Miljan\source\repos\PetljaUPetlji\Mastermind_V3\obj\Debug\Mastermind_V3.csproj.CoreCompileInputs.cache
+C:\Users\Miljan\source\repos\PetljaUPetlji\Mastermind_V3\obj\Debug\Mastermind_V3.exe
+C:\Users\Miljan\source\repos\PetljaUPetlji\Mastermind_V3\obj\Debug\Mastermind_V3.pdb

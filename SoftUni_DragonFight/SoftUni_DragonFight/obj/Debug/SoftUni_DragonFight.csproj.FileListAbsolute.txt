@@ -1,0 +1,7 @@
+C:\Users\Miljan\source\repos\SoftUni_DragonFight\SoftUni_DragonFight\bin\Debug\SoftUni_DragonFight.exe.config
+C:\Users\Miljan\source\repos\SoftUni_DragonFight\SoftUni_DragonFight\bin\Debug\SoftUni_DragonFight.exe
+C:\Users\Miljan\source\repos\SoftUni_DragonFight\SoftUni_DragonFight\bin\Debug\SoftUni_DragonFight.pdb
+C:\Users\Miljan\source\repos\SoftUni_DragonFight\SoftUni_DragonFight\obj\Debug\SoftUni_DragonFight.csproj.AssemblyReference.cache
+C:\Users\Miljan\source\repos\SoftUni_DragonFight\SoftUni_DragonFight\obj\Debug\SoftUni_DragonFight.csproj.CoreCompileInputs.cache
+C:\Users\Miljan\source\repos\SoftUni_DragonFight\SoftUni_DragonFight\obj\Debug\SoftUni_DragonFight.exe
+C:\Users\Miljan\source\repos\SoftUni_DragonFight\SoftUni_DragonFight\obj\Debug\SoftUni_DragonFight.pdb

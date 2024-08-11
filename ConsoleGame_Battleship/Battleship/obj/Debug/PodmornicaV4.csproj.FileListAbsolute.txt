@@ -1,0 +1,14 @@
+C:\Users\Miljan\source\repos\PetljaUPetlji\PodmornicaV4\bin\Debug\PodmornicaV4.exe.config
+C:\Users\Miljan\source\repos\PetljaUPetlji\PodmornicaV4\bin\Debug\PodmornicaV4.exe
+C:\Users\Miljan\source\repos\PetljaUPetlji\PodmornicaV4\bin\Debug\PodmornicaV4.pdb
+C:\Users\Miljan\source\repos\PetljaUPetlji\PodmornicaV4\obj\Debug\PodmornicaV4.csproj.AssemblyReference.cache
+C:\Users\Miljan\source\repos\PetljaUPetlji\PodmornicaV4\obj\Debug\PodmornicaV4.csproj.CoreCompileInputs.cache
+C:\Users\Miljan\source\repos\PetljaUPetlji\PodmornicaV4\obj\Debug\PodmornicaV4.exe
+C:\Users\Miljan\source\repos\PetljaUPetlji\PodmornicaV4\obj\Debug\PodmornicaV4.pdb
+C:\Users\Miljan\source\repos\Igre_vezba\PodmornicaV4\bin\Debug\PodmornicaV4.exe.config
+C:\Users\Miljan\source\repos\Igre_vezba\PodmornicaV4\bin\Debug\PodmornicaV4.exe
+C:\Users\Miljan\source\repos\Igre_vezba\PodmornicaV4\bin\Debug\PodmornicaV4.pdb
+C:\Users\Miljan\source\repos\Igre_vezba\PodmornicaV4\obj\Debug\PodmornicaV4.csproj.AssemblyReference.cache
+C:\Users\Miljan\source\repos\Igre_vezba\PodmornicaV4\obj\Debug\PodmornicaV4.csproj.CoreCompileInputs.cache
+C:\Users\Miljan\source\repos\Igre_vezba\PodmornicaV4\obj\Debug\PodmornicaV4.exe
+C:\Users\Miljan\source\repos\Igre_vezba\PodmornicaV4\obj\Debug\PodmornicaV4.pdb

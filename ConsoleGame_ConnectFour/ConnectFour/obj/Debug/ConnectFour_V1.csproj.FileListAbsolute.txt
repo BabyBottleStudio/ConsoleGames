@@ -1,0 +1,14 @@
+C:\Users\Miljan\source\repos\Igre_vezba\ConnectFour_V1\bin\Debug\ConnectFour_V1.exe.config
+C:\Users\Miljan\source\repos\Igre_vezba\ConnectFour_V1\bin\Debug\ConnectFour_V1.exe
+C:\Users\Miljan\source\repos\Igre_vezba\ConnectFour_V1\bin\Debug\ConnectFour_V1.pdb
+C:\Users\Miljan\source\repos\Igre_vezba\ConnectFour_V1\obj\Debug\ConnectFour_V1.csproj.AssemblyReference.cache
+C:\Users\Miljan\source\repos\Igre_vezba\ConnectFour_V1\obj\Debug\ConnectFour_V1.csproj.CoreCompileInputs.cache
+C:\Users\Miljan\source\repos\Igre_vezba\ConnectFour_V1\obj\Debug\ConnectFour_V1.exe
+C:\Users\Miljan\source\repos\Igre_vezba\ConnectFour_V1\obj\Debug\ConnectFour_V1.pdb
+Z:\C# Ucenje\MiljanPortfolio\repos\ConsoleGame_ConnectFour\ConnectFour\bin\Debug\ConnectFour_V1.exe.config
+Z:\C# Ucenje\MiljanPortfolio\repos\ConsoleGame_ConnectFour\ConnectFour\bin\Debug\ConnectFour_V1.exe
+Z:\C# Ucenje\MiljanPortfolio\repos\ConsoleGame_ConnectFour\ConnectFour\bin\Debug\ConnectFour_V1.pdb
+Z:\C# Ucenje\MiljanPortfolio\repos\ConsoleGame_ConnectFour\ConnectFour\obj\Debug\ConnectFour_V1.csproj.AssemblyReference.cache
+Z:\C# Ucenje\MiljanPortfolio\repos\ConsoleGame_ConnectFour\ConnectFour\obj\Debug\ConnectFour_V1.csproj.CoreCompileInputs.cache
+Z:\C# Ucenje\MiljanPortfolio\repos\ConsoleGame_ConnectFour\ConnectFour\obj\Debug\ConnectFour_V1.exe
+Z:\C# Ucenje\MiljanPortfolio\repos\ConsoleGame_ConnectFour\ConnectFour\obj\Debug\ConnectFour_V1.pdb

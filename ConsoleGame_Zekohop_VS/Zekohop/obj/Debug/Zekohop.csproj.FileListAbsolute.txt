@@ -1,0 +1,14 @@
+C:\Users\Miljan\source\repos\Zekohop\Zekohop\bin\Debug\Zekohop.exe.config
+C:\Users\Miljan\source\repos\Zekohop\Zekohop\bin\Debug\Zekohop.exe
+C:\Users\Miljan\source\repos\Zekohop\Zekohop\bin\Debug\Zekohop.pdb
+C:\Users\Miljan\source\repos\Zekohop\Zekohop\obj\Debug\Zekohop.csproj.AssemblyReference.cache
+C:\Users\Miljan\source\repos\Zekohop\Zekohop\obj\Debug\Zekohop.csproj.CoreCompileInputs.cache
+C:\Users\Miljan\source\repos\Zekohop\Zekohop\obj\Debug\Zekohop.exe
+C:\Users\Miljan\source\repos\Zekohop\Zekohop\obj\Debug\Zekohop.pdb
+C:\Users\Miljan\source\repos\Zekohop_VS\Zekohop\bin\Debug\Zekohop.exe.config
+C:\Users\Miljan\source\repos\Zekohop_VS\Zekohop\bin\Debug\Zekohop.exe
+C:\Users\Miljan\source\repos\Zekohop_VS\Zekohop\bin\Debug\Zekohop.pdb
+C:\Users\Miljan\source\repos\Zekohop_VS\Zekohop\obj\Debug\Zekohop.csproj.AssemblyReference.cache
+C:\Users\Miljan\source\repos\Zekohop_VS\Zekohop\obj\Debug\Zekohop.csproj.CoreCompileInputs.cache
+C:\Users\Miljan\source\repos\Zekohop_VS\Zekohop\obj\Debug\Zekohop.exe
+C:\Users\Miljan\source\repos\Zekohop_VS\Zekohop\obj\Debug\Zekohop.pdb

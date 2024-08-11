@@ -1,0 +1,7 @@
+C:\Users\Miljan\source\repos\PetljaUPetlji\CoffeeMath V4\bin\Debug\CoffeeMath V4.exe.config
+C:\Users\Miljan\source\repos\PetljaUPetlji\CoffeeMath V4\bin\Debug\CoffeeMath V4.exe
+C:\Users\Miljan\source\repos\PetljaUPetlji\CoffeeMath V4\bin\Debug\CoffeeMath V4.pdb
+C:\Users\Miljan\source\repos\PetljaUPetlji\CoffeeMath V4\obj\Debug\CoffeeMath V4.csproj.AssemblyReference.cache
+C:\Users\Miljan\source\repos\PetljaUPetlji\CoffeeMath V4\obj\Debug\CoffeeMath V4.csproj.CoreCompileInputs.cache
+C:\Users\Miljan\source\repos\PetljaUPetlji\CoffeeMath V4\obj\Debug\CoffeeMath V4.exe
+C:\Users\Miljan\source\repos\PetljaUPetlji\CoffeeMath V4\obj\Debug\CoffeeMath V4.pdb

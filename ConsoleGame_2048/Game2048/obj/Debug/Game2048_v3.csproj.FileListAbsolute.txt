@@ -1,0 +1,7 @@
+C:\Users\Miljan\source\repos\Igre_vezba\2048_v3\bin\Debug\2048_v3.exe.config
+C:\Users\Miljan\source\repos\Igre_vezba\2048_v3\bin\Debug\2048_v3.exe
+C:\Users\Miljan\source\repos\Igre_vezba\2048_v3\bin\Debug\2048_v3.pdb
+C:\Users\Miljan\source\repos\Igre_vezba\2048_v3\obj\Debug\Game2048_v3.csproj.AssemblyReference.cache
+C:\Users\Miljan\source\repos\Igre_vezba\2048_v3\obj\Debug\Game2048_v3.csproj.CoreCompileInputs.cache
+C:\Users\Miljan\source\repos\Igre_vezba\2048_v3\obj\Debug\2048_v3.exe
+C:\Users\Miljan\source\repos\Igre_vezba\2048_v3\obj\Debug\2048_v3.pdb
