@@ -45,12 +45,12 @@ namespace Mastermind
             Console.Write($"{attempt}) ");
         }
 
-        public static void BlackPinInfo(int blackPinCount)
+        public static void PinInfoBlack(int blackPinCount)
         {
             Console.WriteLine($"Crnih pinova: {blackPinCount}");
         }
 
-        public static void WhitePinInfo(int whitePinCount)
+        public static void PinInfoWhite(int whitePinCount)
         {
             Console.WriteLine($"Belih pinova: {whitePinCount}");
         }

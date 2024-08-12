@@ -14,28 +14,21 @@ namespace Mastermind
             int attemptCount = Settings.AttemptCount;
 
 
+
             while (replay)
             {
                 Display.Headder();
                 Display.Description();
 
-                // generise se niz od 4 broja. U tom nizu ucestvuju brojevi od 1 do 6
-
-                string secretCombination = "";
-                Random randomBroj = new Random();
-
-                for (int i = 0; i < 4; i++)
+                
+                string secretCombination = new SecretCombination().Value;
+                
+                               
+                if (Settings.cheatMode)
                 {
-                    // generisanje šifre
-                    int a = randomBroj.Next(1, 7);
-
-                    secretCombination += ($"{a}");
-                    //Console.Write($"{a} ");
+                    Display.SecretCombination(secretCombination);
                 }
 
-                //ovde možete da dodelite broj koji želite i testirate algoritam.
-                //dobitniBroj = "2511"; 
-                //Console.WriteLine($"Dobitni broj je: {dobitniBroj} -- feature za testiranje");
 
                 bool isWin = false;
 
@@ -50,7 +43,7 @@ namespace Mastermind
 
                         userInput = Console.ReadLine();
 
-                        bool isInputValid = inputTest(userInput);
+                        bool isInputValid = InputTest(userInput);
 
                         if (isInputValid)
                         {
@@ -63,18 +56,7 @@ namespace Mastermind
 
                     }
 
-                    /*
-                        ideja je da se temp stringovi menjaju i tako filtrira nepotrebno testiranje
-                        čim se dodele crni pinovi, vrednosti tih cifara se vraćaju na 0 i tako izbegavaju dalje testove
-                        Ovo je urađeno zbog belih pinova, jer su oni dosta kompleksniji za test. Ukoliko postoji više identičnih cifara, beli pinovi se zabroje i vraćaju veći broj.
-                        npr:
-                        traženi broj    1234
-                        uneti broj      5111
 
-                        tačan broj pinova 1
-                        pre sam dobijao 3, šta je netačan rezultat
-                        ovi stringovi koji se menjaju nakon svakog true, su (nadam se) rešili stvar
-                     */
 
                     string tempUserInput = userInput; // test string koji ce se menjati kako prolaze testovi
                     string tempDobitniBroj = secretCombination; // test string koji ce se menjati kako prolaze testovi
@@ -87,8 +69,8 @@ namespace Mastermind
                         {
                             blackPins++;
 
-                            tempUserInput = replaceDigit(tempUserInput, j, '0');
-                            tempDobitniBroj = replaceDigit(tempDobitniBroj, j, '0');
+                            tempUserInput = ReplaceDigit(tempUserInput, j, '0');
+                            tempDobitniBroj = ReplaceDigit(tempDobitniBroj, j, '0');
                         }
                     }
 
@@ -99,7 +81,7 @@ namespace Mastermind
                     }
 
 
-                    Display.BlackPinInfo(blackPins);
+                    Display.PinInfoBlack(blackPins);
 
 
                     int whitePins = 0;
@@ -110,14 +92,14 @@ namespace Mastermind
                             if (tempUserInput[j] != '0' && tempDobitniBroj[k] != '0' && tempUserInput[j] == tempDobitniBroj[k])
                             {
                                 whitePins++;
-                                tempUserInput = replaceDigit(tempUserInput, j, '0');
-                                tempDobitniBroj = replaceDigit(tempDobitniBroj, k, '0');
+                                tempUserInput = ReplaceDigit(tempUserInput, j, '0');
+                                tempDobitniBroj = ReplaceDigit(tempDobitniBroj, k, '0');
                                 break;
                             }
                         }
                     }
 
-                    Display.WhitePinInfo(whitePins);
+                    Display.PinInfoWhite(whitePins);
 
                 }
 
@@ -154,7 +136,7 @@ namespace Mastermind
         }
 
         // funkcije
-        static string replaceDigit(string broj, int index, char a)
+        static string ReplaceDigit(string broj, int index, char a)
         {
             char[] chars = broj.ToCharArray();
             chars[index] = a;
@@ -163,20 +145,21 @@ namespace Mastermind
             return newNumber;
         }
 
-        static bool inputTest(string input)
+        static bool InputTest(string input)
         {
-            bool isValid = true;
+            //bool isValid = true;
+
             if (input.Length != 4)
             {
-                isValid = false;
+                //isValid = false;
                 //Console.WriteLine("GRSKA!!! Unos nema cetiri karaktera!");
-                return isValid;
+                return false;
             }
             //Console.WriteLine("Unos ima cetiri karaktera!");
             //Console.WriteLine("-- nastavak provere --");
 
-            int tempInteger;
-            isValid = int.TryParse(input, out tempInteger);
+            //int tempInteger;
+            bool isValid = int.TryParse(input, out int tempInteger);
 
             if (isValid)
             {
@@ -190,22 +173,35 @@ namespace Mastermind
                     if (cifra < 1 || cifra > 6)
                     {
                         //Console.WriteLine($"{input[i]} ne odgovara!");
-                        isValid = false;
-                        return isValid;
+                        //isValid = false;
+                        return false;
                     }
                 }
             }
             else
             {
                 //Console.WriteLine("Unos nije ceo broj!");
-                return isValid; // ovde je false
+                return false; // ovde je false
             }
 
-            return isValid;
+            return true;
         }
     }
 }
 
+
+/*
+    ideja je da se temp stringovi menjaju i tako filtrira nepotrebno testiranje
+    čim se dodele crni pinovi, vrednosti tih cifara se vraćaju na 0 i tako izbegavaju dalje testove
+    Ovo je urađeno zbog belih pinova, jer su oni dosta kompleksniji za test. Ukoliko postoji više identičnih cifara, beli pinovi se zabroje i vraćaju veći broj.
+    npr:
+    traženi broj    1234
+    uneti broj      5111
+
+    tačan broj pinova 1
+    pre sam dobijao 3, šta je netačan rezultat
+    ovi stringovi koji se menjaju nakon svakog true, su (nadam se) rešili stvar
+ */
 
 
 /*

@@ -11,6 +11,10 @@ namespace Mastermind
         private static int attemptCount = 12;
         public static int AttemptCount { get => attemptCount; private set => attemptCount = value; }
 
+
+        public readonly static bool cheatMode = false;
+        //public static bool CheatMode() => cheatMode;
+
         // dimenzije konzole
     }
 }
