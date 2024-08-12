@@ -11,6 +11,9 @@ namespace Mastermind
         private static int attemptCount = 12;
         public static int AttemptCount { get => attemptCount; private set => attemptCount = value; }
 
+        private static int secredCodeLength = 4;
+        public static int SecredCodeLength { get => secredCodeLength; private set => secredCodeLength = value; }
+
 
         public readonly static bool cheatMode = false;
         //public static bool CheatMode() => cheatMode;

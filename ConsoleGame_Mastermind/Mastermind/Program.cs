@@ -13,6 +13,9 @@ namespace Mastermind
             bool replay = true;
             int attemptCount = Settings.AttemptCount;
 
+            //Grid grid = new Grid();
+
+            //grid.DisplayGrid();
 
 
             while (replay)
@@ -149,19 +152,25 @@ namespace Mastermind
         {
             //bool isValid = true;
 
-            if (input.Length != 4)
+            if (!UserInput.IsLengthValid(input))
             {
-                //isValid = false;
-                //Console.WriteLine("GRSKA!!! Unos nema cetiri karaktera!");
                 return false;
             }
+
+            //if (input.Length != 4)
+            //{
+            //isValid = false;
+            //Console.WriteLine("GRSKA!!! Unos nema cetiri karaktera!");
+            //return false;
+            //}
             //Console.WriteLine("Unos ima cetiri karaktera!");
             //Console.WriteLine("-- nastavak provere --");
 
             //int tempInteger;
-            bool isValid = int.TryParse(input, out int tempInteger);
+            //bool isValid = UserInput.IsContentValid(input);
+            //bool isValid = int.TryParse(input, out int tempInteger);
 
-            if (isValid)
+            if (UserInput.IsContentValid(input))
             {
                 //Console.WriteLine("Unos jeste ceo broj!");
 

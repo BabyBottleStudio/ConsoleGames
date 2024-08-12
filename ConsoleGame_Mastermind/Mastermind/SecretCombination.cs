@@ -21,7 +21,7 @@ namespace Mastermind
         string GenerateCombination()
         {
             StringBuilder output = new StringBuilder();
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < Settings.SecredCodeLength; i++)
             {
                 int a = randomBroj.Next(1, 7);
                 output.Append(a);
