@@ -37,9 +37,8 @@ namespace Mastermind
                 //dobitniBroj = "2511"; 
                 //Console.WriteLine($"Dobitni broj je: {dobitniBroj} -- feature za testiranje");
 
-
-
                 bool isWin = false;
+
                 for (int i = 1; i <= attemptCount; i++)
                 {
                     string userInput; // = Console.ReadLine();
