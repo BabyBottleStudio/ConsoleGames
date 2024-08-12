@@ -1,0 +1,7 @@
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_Mastermind\Mastermind\bin\Debug\Mastermind_V3.exe.config
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_Mastermind\Mastermind\bin\Debug\Mastermind_V3.exe
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_Mastermind\Mastermind\bin\Debug\Mastermind_V3.pdb
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_Mastermind\Mastermind\obj\Debug\Mastermind.csproj.AssemblyReference.cache
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_Mastermind\Mastermind\obj\Debug\Mastermind.csproj.CoreCompileInputs.cache
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_Mastermind\Mastermind\obj\Debug\Mastermind_V3.exe
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\ConsoleGame_Mastermind\Mastermind\obj\Debug\Mastermind_V3.pdb

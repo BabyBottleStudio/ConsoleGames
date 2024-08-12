@@ -4,52 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MasterMind
+namespace Mastermind
 {
     class Program
     {
         static void Main(string[] args)
         {
-            bool ponovo = true;
+            bool replay = true;
+            int attemptCount = Settings.AttemptCount;
 
 
-            while (ponovo)
+            while (replay)
             {
-                Console.WriteLine("*****************************************************************************************************************");
-                Console.WriteLine("************************************** W E L C O M E  T O *************************************       ()      ***");
-                Console.WriteLine("***   @     @      @      @@@@   @@@@@   @@@@@   @@@@     @     @   @@@   @    @   @@@@     ***      (  )     ***");
-                Console.WriteLine("***   @@   @@     @@@    @         @     @       @   @    @@   @@    @    @@   @   @   @    ***    [__ ___]   ***");
-                Console.WriteLine("***   @ @ @ @    @   @    @@@@     @     @@@     @@@@     @ @ @ @    @    @ @  @   @    @   ***     |(*)(*)   ***");
-                Console.WriteLine("***   @  @  @   @@@@@@@       @    @     @       @   @    @  @  @    @    @  @ @   @    @   ***     |    |    ***");
-                Console.WriteLine("***   @     @   @     @   @@@@     @     @@@@@   @    @   @     @   @@@   @    @   @@@@@    ***     |____|    ***");
-                Console.WriteLine("*********************************************************************************************** by BabyBottle ***");
-                Console.WriteLine("*****************************************************************************************************************");
-
-
-
-
-
-
-
-                const int brojPokusaja = 12;
-
-
-
-
-                Console.WriteLine("Dobro došli u igru <MASTERMIND>");
-                Console.WriteLine();
-                Console.WriteLine("Pravila:");
-                Console.WriteLine("Računar će izgenerisati šifru od četiri broja, koristeći samo cifre od 1 do 6.");
-                Console.WriteLine($"Igrač ima {brojPokusaja} pokušaja da je otkrije.");
-                Console.WriteLine("Nakon svakog pokušaja, dobićete pinove.");
-                Console.WriteLine("Broj crnih pinova predstavlja koliko ste brojeva u nizu postavili na pravo mesto.");
-                Console.WriteLine("Broj belih pinova predstavlja upotrebljen pravi broj, ali na pogrešnom mestu.");
-                Console.WriteLine();
-
+                Display.Headder();
+                Display.Description();
 
                 // generise se niz od 4 broja. U tom nizu ucestvuju brojevi od 1 do 6
 
-                string dobitniBroj = "";
+                string secretCombination = "";
                 Random randomBroj = new Random();
 
                 for (int i = 0; i < 4; i++)
@@ -57,7 +29,7 @@ namespace MasterMind
                     // generisanje šifre
                     int a = randomBroj.Next(1, 7);
 
-                    dobitniBroj += ($"{a}");
+                    secretCombination += ($"{a}");
                     //Console.Write($"{a} ");
                 }
 
@@ -68,14 +40,14 @@ namespace MasterMind
 
 
                 bool isWin = false;
-                for (int i = 1; i <= brojPokusaja; i++)
+                for (int i = 1; i <= attemptCount; i++)
                 {
                     string userInput; // = Console.ReadLine();
 
                     while (true)
                     {
-                        Console.WriteLine("Unesite četvorocifreni broj, koristeći cifre od 1 do 6!");
-                        Console.Write($"{i}) ");
+                        Display.InputInstruction();
+                        Display.AttemptNumber(i);
 
                         userInput = Console.ReadLine();
 
@@ -87,8 +59,7 @@ namespace MasterMind
                         }
                         else
                         {
-                            Console.WriteLine("Unos nije validan. Pokušajte ponovo.");
-                            Console.WriteLine();
+                            Display.InvalidEntryInformation();
                         }
 
                     }
@@ -105,14 +76,15 @@ namespace MasterMind
                         pre sam dobijao 3, šta je netačan rezultat
                         ovi stringovi koji se menjaju nakon svakog true, su (nadam se) rešili stvar
                      */
+
                     string tempUserInput = userInput; // test string koji ce se menjati kako prolaze testovi
-                    string tempDobitniBroj = dobitniBroj; // test string koji ce se menjati kako prolaze testovi
+                    string tempDobitniBroj = secretCombination; // test string koji ce se menjati kako prolaze testovi
 
 
                     int blackPins = 0;
                     for (int j = 0; j < 4; j++)
                     {
-                        if (dobitniBroj[j] == userInput[j])
+                        if (secretCombination[j] == userInput[j])
                         {
                             blackPins++;
 
@@ -128,7 +100,7 @@ namespace MasterMind
                     }
 
 
-                    Console.WriteLine($"Crnih pinova: {blackPins}");
+                    Display.BlackPinInfo(blackPins);
 
 
                     int whitePins = 0;
@@ -145,99 +117,92 @@ namespace MasterMind
                             }
                         }
                     }
-                    Console.WriteLine($"Belih pinova: {whitePins}");
+
+                    Display.WhitePinInfo(whitePins);
 
                 }
 
                 if (isWin)
                 {
-                    Console.WriteLine();
-                    Console.WriteLine("Č E S T I T A M O !");
-                    Console.WriteLine("-- Pobedili ste --");
-                    Console.WriteLine($"Pogodili ste tačnu kombinaciju koja je:");
+                    Display.GameOverWin();
                 }
                 else
                 {
-                    Console.WriteLine();
-                    Console.WriteLine("KRAJ!");
-                    Console.WriteLine($"Iskoristili ste svih {brojPokusaja} i niste pogodili");
-                    Console.WriteLine($"Tačna kombinacija je:");
+                    Display.GameOverLose();
                 }
-                Console.WriteLine($"{dobitniBroj} ");
-                Console.WriteLine();
 
-                Console.WriteLine("Da li želite da igrate još jedanput?");
-                Console.WriteLine("D/N");
-                string odgovor = Console.ReadLine();
-                
-                odgovor = odgovor.ToLower();
+                Display.SecretCombination(secretCombination);
+                Display.PlayAgainQuestion();
 
+                string userAnswer = Console.ReadLine();
 
+                userAnswer = userAnswer.ToLower();
 
-                if (odgovor != "d")
+                if (userAnswer != "d")
                 {
-                    ponovo = false;
-                    Console.WriteLine("Hvala puno i doviđenja!");
+                    replay = false;
+                    Display.ExitGame();
                 }
                 else
                 {
                     Console.Clear();
                 }
-                    
+
 
             }
 
 
+        }
 
-            // funkcije
-            string replaceDigit(string broj, int index , char a)
+        // funkcije
+        static string replaceDigit(string broj, int index, char a)
+        {
+            char[] chars = broj.ToCharArray();
+            chars[index] = a;
+            string newNumber = new string(chars);
+
+            return newNumber;
+        }
+
+        static bool inputTest(string input)
+        {
+            bool isValid = true;
+            if (input.Length != 4)
             {
-                char[] chars = broj.ToCharArray();
-                chars[index] = a;
-                string newNumber = new string(chars);
-
-                return newNumber;
-            }
-            bool inputTest(string input)
-            {
-                bool isValid = true;
-                if (input.Length != 4)
-                {
-                    isValid = false;
-                    //Console.WriteLine("GRSKA!!! Unos nema cetiri karaktera!");
-                    return isValid;
-                }
-                //Console.WriteLine("Unos ima cetiri karaktera!");
-                //Console.WriteLine("-- nastavak provere --");
-
-                int tempInteger;
-                isValid = int.TryParse(input, out tempInteger);
-
-                if (isValid)
-                {
-                    //Console.WriteLine("Unos jeste ceo broj!");
-
-                    for (int i = 0; i < 4; i++)
-                    {
-                        int cifra = int.Parse(input[i].ToString());
-
-                        //if (char.IsDigit(input[i]) && cifra >= 1 && cifra <= 6)
-                        if (cifra < 1 || cifra > 6)
-                        {
-                            //Console.WriteLine($"{input[i]} ne odgovara!");
-                            isValid = false;
-                            return isValid;
-                        }
-                    }
-                }
-                else
-                {
-                    //Console.WriteLine("Unos nije ceo broj!");
-                    return isValid; // ovde je false
-                }
-
+                isValid = false;
+                //Console.WriteLine("GRSKA!!! Unos nema cetiri karaktera!");
                 return isValid;
             }
+            //Console.WriteLine("Unos ima cetiri karaktera!");
+            //Console.WriteLine("-- nastavak provere --");
+
+            int tempInteger;
+            isValid = int.TryParse(input, out tempInteger);
+
+            if (isValid)
+            {
+                //Console.WriteLine("Unos jeste ceo broj!");
+
+                for (int i = 0; i < 4; i++)
+                {
+                    int cifra = int.Parse(input[i].ToString());
+
+                    //if (char.IsDigit(input[i]) && cifra >= 1 && cifra <= 6)
+                    if (cifra < 1 || cifra > 6)
+                    {
+                        //Console.WriteLine($"{input[i]} ne odgovara!");
+                        isValid = false;
+                        return isValid;
+                    }
+                }
+            }
+            else
+            {
+                //Console.WriteLine("Unos nije ceo broj!");
+                return isValid; // ovde je false
+            }
+
+            return isValid;
         }
     }
 }
