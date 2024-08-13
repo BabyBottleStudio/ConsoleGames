@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// secret combination - dodao GenerateCombination metodu
+// Settings - dodata promenljiva za raspon cifara (broj boja)
+
 namespace Mastermind
 {
     class Program
@@ -23,12 +26,15 @@ namespace Mastermind
                 Display.Headder();
                 Display.Description();
 
-                
-                string secretCombination = new SecretCombination().Value;
-                
-                               
+                Random randomNumber = new Random();
+
+                SecretCombination secret = new SecretCombination(randomNumber);
+                string secretCombination = secret.Value;
+
+
                 if (Settings.cheatMode)
                 {
+                    Console.WriteLine(secret.ToString());
                     Display.SecretCombination(secretCombination);
                 }
 
@@ -37,38 +43,18 @@ namespace Mastermind
 
                 for (int i = 1; i <= attemptCount; i++)
                 {
-                    string userInput; // = Console.ReadLine();
-
-                    while (true)
-                    {
-                        Display.InputInstruction();
-                        Display.AttemptNumber(i);
-
-                        userInput = Console.ReadLine();
-
-                        bool isInputValid = InputTest(userInput);
-
-                        if (isInputValid)
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            Display.InvalidEntryInformation();
-                        }
-
-                    }
+                    UserInput.Validate(i);
 
 
 
-                    string tempUserInput = userInput; // test string koji ce se menjati kako prolaze testovi
+                    string tempUserInput = UserInput.Input; // test string koji ce se menjati kako prolaze testovi
                     string tempDobitniBroj = secretCombination; // test string koji ce se menjati kako prolaze testovi
 
 
                     int blackPins = 0;
                     for (int j = 0; j < 4; j++)
                     {
-                        if (secretCombination[j] == userInput[j])
+                        if (secretCombination[j] == UserInput.Input[j])
                         {
                             blackPins++;
 
@@ -148,53 +134,8 @@ namespace Mastermind
             return newNumber;
         }
 
-        static bool InputTest(string input)
-        {
-            //bool isValid = true;
 
-            if (!UserInput.IsLengthValid(input))
-            {
-                return false;
-            }
 
-            //if (input.Length != 4)
-            //{
-            //isValid = false;
-            //Console.WriteLine("GRSKA!!! Unos nema cetiri karaktera!");
-            //return false;
-            //}
-            //Console.WriteLine("Unos ima cetiri karaktera!");
-            //Console.WriteLine("-- nastavak provere --");
-
-            //int tempInteger;
-            //bool isValid = UserInput.IsContentValid(input);
-            //bool isValid = int.TryParse(input, out int tempInteger);
-
-            if (UserInput.IsContentValid(input))
-            {
-                //Console.WriteLine("Unos jeste ceo broj!");
-
-                for (int i = 0; i < 4; i++)
-                {
-                    int cifra = int.Parse(input[i].ToString());
-
-                    //if (char.IsDigit(input[i]) && cifra >= 1 && cifra <= 6)
-                    if (cifra < 1 || cifra > 6)
-                    {
-                        //Console.WriteLine($"{input[i]} ne odgovara!");
-                        //isValid = false;
-                        return false;
-                    }
-                }
-            }
-            else
-            {
-                //Console.WriteLine("Unos nije ceo broj!");
-                return false; // ovde je false
-            }
-
-            return true;
-        }
     }
 }
 
@@ -222,3 +163,77 @@ namespace Mastermind
 
     први играч му даје две црне чиоде за погођене две црвене чиоде, и још једну црну чиоду за погођену плаву. За трећу црвену не добија ништа јер не постоји три црвене у решењу. Нема наговештаја да у комбинацији постоји још једна плава чиода. Што се тиче другог играча на то место може доћи било која од преосталих боја, осим црвене.[5]
  */
+
+/*
+while (true)
+{
+    Display.InputInstruction();
+    Display.AttemptNumber(i);
+
+    userInput = Console.ReadLine();
+
+    bool isInputValid = InputTest(userInput);
+
+    if (isInputValid)
+    {
+        break;
+    }
+    else
+    {
+        Display.InvalidEntryInformation();
+    }
+
+}
+*/
+
+
+
+/*
+static bool InputTest(string input)
+{
+    //bool isValid = true;
+
+    if (!UserInput.IsLengthValid(input))
+    {
+        return false;
+    }
+
+    //if (input.Length != 4)
+    //{
+    //isValid = false;
+    //Console.WriteLine("GRSKA!!! Unos nema cetiri karaktera!");
+    //return false;
+    //}
+    //Console.WriteLine("Unos ima cetiri karaktera!");
+    //Console.WriteLine("-- nastavak provere --");
+
+    //int tempInteger;
+    //bool isValid = UserInput.IsContentValid(input);
+    //bool isValid = int.TryParse(input, out int tempInteger);
+
+    if (UserInput.IsContentValid(input))
+    {
+        //Console.WriteLine("Unos jeste ceo broj!");
+
+        for (int i = 0; i < 4; i++)
+        {
+            int cifra = int.Parse(input[i].ToString());
+
+            //if (char.IsDigit(input[i]) && cifra >= 1 && cifra <= 6)
+            if (cifra < 1 || cifra > 6)
+            {
+                //Console.WriteLine($"{input[i]} ne odgovara!");
+                //isValid = false;
+                return false;
+            }
+        }
+    }
+    else
+    {
+        //Console.WriteLine("Unos nije ceo broj!");
+        return false; // ovde je false
+    }
+
+    return true;
+}
+*/

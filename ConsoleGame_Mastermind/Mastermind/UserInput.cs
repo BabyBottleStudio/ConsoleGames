@@ -8,14 +8,42 @@ namespace Mastermind
 {
     static class UserInput
     {
-        static string input {get; set; }
+        public static string Input { get; set; }
+
+        public static int[] userInput { get; set; }
 
 
-        
-        public static int[] Parse(string userInput) => userInput.Select(x => int.Parse(x.ToString())).ToArray();
 
-        public static bool IsLengthValid(string userInput) => input.Length == 4;
 
-        public static bool IsContentValid(string userInput) => userInput.All(x => char.IsDigit(x));
+        public static int[] ParseUserInput() => Input.Select(x => int.Parse(x.ToString())).ToArray();
+
+        public static bool IsLengthValid() => Input.Length == Settings.SecredCodeLength;
+
+        public static bool IsContentValid() => Input.All(x => char.IsDigit(x));
+
+
+        public static void Validate(int guessNumber)
+        {
+            while (true)
+            {
+                Display.InputInstruction();
+                Display.AttemptNumber(guessNumber);
+
+                Input = Console.ReadLine();
+
+                if (IsLengthValid() && IsContentValid())
+                {
+                    // prolaze cifre koje nisu od 1 do 6
+                    userInput = ParseUserInput();
+                    return;
+                }
+                else
+                {
+                    Display.InvalidEntryInformation();
+                    
+                }
+            }
+        }
+
     }
 }
