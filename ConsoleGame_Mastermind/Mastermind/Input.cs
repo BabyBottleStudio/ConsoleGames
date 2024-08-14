@@ -27,7 +27,6 @@ namespace Mastermind
 
         public static bool IsContentValid() => input.All(x => char.IsDigit(x));
 
-        public static bool IsValueValid(int number) => (number > 0 && number <= Settings.ColorsCount);
 
 
         public static void Validate(int guessNumber)
