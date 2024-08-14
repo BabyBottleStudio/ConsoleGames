@@ -29,12 +29,12 @@ namespace Mastermind
 
 
 
-        public static void Validate(int guessNumber)
+        public static void Validate(int currentGuessAttempt)
         {
             while (true)
             {
                 Display.InputInstruction();
-                Display.AttemptNumber(guessNumber);
+                Display.AttemptNumber(currentGuessAttempt);
 
                 input = Console.ReadLine();
 
