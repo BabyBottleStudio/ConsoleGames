@@ -43,18 +43,18 @@ namespace Mastermind
 
                 for (int i = 1; i <= attemptCount; i++)
                 {
-                    UserInput.Validate(i);
+                    Input.Validate(i);
 
 
 
-                    string tempUserInput = UserInput.Input; // test string koji ce se menjati kako prolaze testovi
+                    string tempUserInput = Input.input; // test string koji ce se menjati kako prolaze testovi
                     string tempDobitniBroj = secretCombination; // test string koji ce se menjati kako prolaze testovi
 
 
                     int blackPins = 0;
                     for (int j = 0; j < 4; j++)
                     {
-                        if (secretCombination[j] == UserInput.Input[j])
+                        if (secretCombination[j] == Input.input[j])
                         {
                             blackPins++;
 
