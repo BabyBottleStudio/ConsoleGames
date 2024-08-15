@@ -4,9 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-// secret combination - dodao GenerateCombination metodu
-// Settings - dodata promenljiva za raspon cifara (broj boja)
-
 namespace Mastermind
 {
     class Program
@@ -43,53 +40,23 @@ namespace Mastermind
 
                 for (int i = 1; i <= attemptCount; i++)
                 {
-                    Input.Validate(i);
 
+                    // this method invokes the sytem for user input validation
+                    UserInput.Validate(i);
 
+                    PinCalculator.tempUserInput = UserInput.GuessCode; // test string koji ce se menjati kako prolaze testovi
+                    PinCalculator.tempSecretCode = secretCombination; // test string koji ce se menjati kako prolaze testovi
 
-                    string tempUserInput = Input.input; // test string koji ce se menjati kako prolaze testovi
-                    string tempDobitniBroj = secretCombination; // test string koji ce se menjati kako prolaze testovi
+                    (int black, int white) pins = PinCalculator.ReturnPins();
 
-
-                    int blackPins = 0;
-                    for (int j = 0; j < 4; j++)
-                    {
-                        if (secretCombination[j] == Input.input[j])
-                        {
-                            blackPins++;
-
-                            tempUserInput = ReplaceDigit(tempUserInput, j, '0');
-                            tempDobitniBroj = ReplaceDigit(tempDobitniBroj, j, '0');
-                        }
-                    }
-
-                    if (blackPins == 4) // ukoliko je pogodjena kombinacija
+                    if (pins.black == Settings.SecredCodeLength) // ukoliko je pogodjena kombinacija
                     {
                         isWin = true; // pobeda!!!
                         break;
                     }
 
-
-                    Display.PinInfoBlack(blackPins);
-
-
-                    int whitePins = 0;
-                    for (int j = 0; j < 4; j++)
-                    {
-                        for (int k = 0; k < 4; k++)
-                        {
-                            if (tempUserInput[j] != '0' && tempDobitniBroj[k] != '0' && tempUserInput[j] == tempDobitniBroj[k])
-                            {
-                                whitePins++;
-                                tempUserInput = ReplaceDigit(tempUserInput, j, '0');
-                                tempDobitniBroj = ReplaceDigit(tempDobitniBroj, k, '0');
-                                break;
-                            }
-                        }
-                    }
-
-                    Display.PinInfoWhite(whitePins);
-
+                    Display.PinInfoBlack(pins.black);
+                    Display.PinInfoWhite(pins.white);
                 }
 
                 if (isWin)
@@ -104,41 +71,34 @@ namespace Mastermind
                 Display.SecretCombination(secretCombination);
                 Display.PlayAgainQuestion();
 
-                string userAnswer = Console.ReadLine();
+                char userAnswer = Console.ReadKey().KeyChar;
 
-                userAnswer = userAnswer.ToLower();
-
-                if (userAnswer != "d")
+                if (userAnswer == 'd' || userAnswer == 'D')
+                {
+                    Console.Clear();
+                }
+                else
                 {
                     replay = false;
                     Display.ExitGame();
                 }
-                else
-                {
-                    Console.Clear();
-                }
-
-
-            }
-
-
+            } // while(replay) - END
         }
-
-        // funkcije
-        static string ReplaceDigit(string broj, int index, char a)
-        {
-            char[] chars = broj.ToCharArray();
-            chars[index] = a;
-            string newNumber = new string(chars);
-
-            return newNumber;
-        }
-
-
-
     }
 }
 
+/*
+// funkcije
+static string ReplaceDigit(string broj, int index, char a)
+{
+    char[] chars = broj.ToCharArray();
+    chars[index] = a;
+    string newNumber = new string(chars);
+
+    return newNumber;
+}
+
+*/
 
 /*
     ideja je da se temp stringovi menjaju i tako filtrira nepotrebno testiranje
