@@ -10,12 +10,13 @@ namespace Mastermind
     {
         static void Main(string[] args)
         {
+            Console.Title = "Mastermind";
             bool replay = true;
             int attemptCount = Settings.AttemptCount;
 
-            //Grid grid = new Grid();
+            Grid grid = new Grid();
 
-            //grid.DisplayGrid();
+            grid.DisplayGrid();
 
 
             while (replay)

@@ -24,7 +24,7 @@ namespace Mastermind
             Console.WriteLine("Dobro došli u igru <MASTERMIND>");
             Console.WriteLine();
             Console.WriteLine("Pravila:");
-            Console.WriteLine("Računar će izgenerisati šifru od četiri broja, koristeći samo cifre od 1 do 6.");
+            Console.WriteLine($"Računar će izgenerisati šifru od četiri broja, koristeći samo cifre od 1 do {Settings.ColorsCount}.");
             Console.WriteLine($"Igrač ima {Settings.AttemptCount} pokušaja da je otkrije.");
             Console.WriteLine("Nakon svakog pokušaja, dobićete pinove.");
             Console.WriteLine("Broj crnih pinova predstavlja koliko ste brojeva u nizu postavili na pravo mesto.");
@@ -58,7 +58,7 @@ namespace Mastermind
 
         public static void InputInstruction()
         {
-            Console.WriteLine("Unesite četvorocifreni broj, koristeći cifre od 1 do 6!");
+            Console.WriteLine($"Unesite četvorocifreni broj, koristeći cifre od 1 do {Settings.ColorsCount}!");
         }
 
         public static void InvalidEntryInformation()
