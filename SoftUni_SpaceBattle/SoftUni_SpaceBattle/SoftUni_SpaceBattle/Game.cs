@@ -61,12 +61,12 @@ namespace SoftUni_SpaceBattle
                         {
                             case '1':
 
-                                // REFAKTORING -> Battle sistem treba da ide u Battle klasu. Ovde je samo zbog postavke.
+                                // REFAKTORING -> Battle sistem treba da ide u Battle klasu. Ovde je samo zbog postavke. Mnogo koda se ponavlja sta nije dobro!!!
                                 Console.WriteLine("Player fires a laser");
 
-                                if (playerShip.Laser.IsHit())
+                                if (playerShip.PrimaryWeapon.IsHit())
                                 {
-                                    int damageToDeal = playerShip.Laser.DealDamage();
+                                    int damageToDeal = playerShip.PrimaryWeapon.DealDamage();
                                     Ship.Status enemyShipStatus = areas[i].EnemyShip.ReceiveDamage(damageToDeal);
 
                                     if (enemyShipStatus == Ship.Status.destroyed)
@@ -94,9 +94,50 @@ namespace SoftUni_SpaceBattle
                                 break;
                             case '2':
                                 Console.WriteLine("Player fires photon torpedo");
+                                bool secondaryWeaponSucsess = playerShip.FireSecondaryWeapon();
+
+                                if (secondaryWeaponSucsess && playerShip.SecondaryWeapon.IsHit())
+                                {
+                                    int damageToDeal = playerShip.SecondaryWeapon.DealDamage();
+                                    Ship.Status enemyShipStatus = areas[i].EnemyShip.ReceiveDamage(damageToDeal);
+
+
+                                    if (enemyShipStatus == Ship.Status.destroyed)
+                                    {
+                                        Console.WriteLine($"You destroyed enemy ship \"{areas[i].EnemyShip.Name}\". You can move on to the next system.");
+                                        isAreaClear = true;
+                                        Console.WriteLine("Press any key to continue!");
+                                        Console.ReadKey();
+                                        Console.Clear();
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine($"Player dealt {damageToDeal} of damage.");
+                                        Console.WriteLine($"\"{areas[i].EnemyShip.Name}\" is still in one peace.");
+                                        //areas[i].EnemyShip.GetStats();
+                                    }
+
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Player missed!");
+                                }
+
+                                
                                 break;
                             case '3':
-                                Console.WriteLine("Player decided to flee like a little bitch!");
+                                Console.WriteLine("Player decided to flee like a little bitch, and... ");
+                                if (Dice.Roll() > 50)
+                                {
+                                    Console.WriteLine("... sucsesfully avoided the battle!");
+                                    isAreaClear = true;
+                                    Console.Clear();
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"... failed. He remains in the {areas[i].Name}, to get his ass kicked.");
+                                }
+
                                 break;
                         }
 
@@ -111,9 +152,9 @@ namespace SoftUni_SpaceBattle
                             areas[i].EnemyShip.GetStats();
                             Console.WriteLine($"\"{areas[i].EnemyShip.Name}\" fires a weapon.");
 
-                            if (areas[i].EnemyShip.Laser.IsHit())
+                            if (areas[i].EnemyShip.PrimaryWeapon.IsHit())
                             {
-                                int damageToReceive = areas[i].EnemyShip.Laser.DealDamage();
+                                int damageToReceive = areas[i].EnemyShip.PrimaryWeapon.DealDamage();
                                 Ship.Status playerShipStatus = playerShip.ReceiveDamage(damageToReceive);
 
                                 Console.WriteLine($"Player received {damageToReceive} of damage!");

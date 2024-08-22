@@ -6,14 +6,17 @@ namespace SoftUni_SpaceBattle
     {
         string name;
         int shieldStrength;
-        Weapon laser;
-        Weapon photonTorpedo;
+        Weapon primaryWeapon;
+        Weapon secondaryWeapon;
+        int secondaryWeaponCount;
+
         int chanceToEscape = 50;
         BelongsTo belongs;
 
         public string Name { get => name; }
-        internal Weapon Laser { get => laser; set => laser = value; }
-        internal Weapon PhotonTorpedo { get => photonTorpedo; set => photonTorpedo = value; }
+        internal Weapon PrimaryWeapon { get => primaryWeapon; set => primaryWeapon = value; }
+        internal Weapon SecondaryWeapon { get => secondaryWeapon; set => secondaryWeapon = value; }
+        public int SecondaryWeaponCount { get => secondaryWeaponCount; set => secondaryWeaponCount = value; }
 
         public enum BelongsTo
         {
@@ -34,16 +37,18 @@ namespace SoftUni_SpaceBattle
             {
                 this.name = Database.GetRandomShipName();
                 shieldStrength = 50;
-                Laser = new Weapon("EnmyLaser", 10, 15, 70, Weapon.Expendable.infinite);
-                PhotonTorpedo = null;
+                PrimaryWeapon = new Weapon("EnmyLaser", 10, 15, 70); //, Weapon.Expendable.infinite);
+                SecondaryWeapon = null;
+                SecondaryWeaponCount = 0;
             }
             else if (belongs == BelongsTo.Player)
             {
                 name = "Enterschpaise";
                 shieldStrength = 100;
-                Laser = new Weapon("Laser", 10, 20, 80, Weapon.Expendable.infinite);
+                PrimaryWeapon = new Weapon("Phaser", 10, 20, 80); //, Weapon.Expendable.infinite);
 
-                PhotonTorpedo = new Weapon("Photon Torpedo", 30, 40, 90, Weapon.Expendable.limitedAmount);
+                SecondaryWeapon = new Weapon("Photon Torpedo", 30, 40, 90); //, Weapon.Expendable.limitedAmount);
+                SecondaryWeaponCount = 3;
             }
 
         }
@@ -55,6 +60,23 @@ namespace SoftUni_SpaceBattle
             return (shieldStrength > 0) ? Status.alive : Status.destroyed;
         }
 
+        private bool SecondaryWeaponAvailable() => secondaryWeaponCount > 0;
+
+        public bool FireSecondaryWeapon()
+        {
+            if (SecondaryWeaponAvailable())
+            {
+                --secondaryWeaponCount;
+                Console.WriteLine($"{SecondaryWeapon.Name} sucsessfully fired.");
+                Console.WriteLine($"You have {secondaryWeaponCount} left.");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine($"No more {SecondaryWeapon.Name}. You used all.");
+                return false;
+            }
+        }
 
         public void GetStats()
         {
