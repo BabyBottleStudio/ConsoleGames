@@ -25,8 +25,15 @@ namespace Mastermind
                 {
                     Console.Write($"| {gridData[i,j]} ");
                 }
-                Console.WriteLine("|");
+                Console.Write("| - ");
+
+                for (int j = 0; j < gridData.GetLength(1); j++)
+                {
+                    Console.Write($"( )");
+                }
+                Console.WriteLine();
             }
+            Console.WriteLine(" --- --- --- ---");
         }
 
     }

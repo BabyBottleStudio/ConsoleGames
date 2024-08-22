@@ -14,15 +14,15 @@ namespace Mastermind
             bool replay = true;
             int attemptCount = Settings.AttemptCount;
 
-            Grid grid = new Grid();
-
-            grid.DisplayGrid();
 
 
             while (replay)
             {
                 Display.Headder();
                 Display.Description();
+
+            Grid grid = new Grid();
+            grid.DisplayGrid();
 
                 Random randomNumber = new Random();
 
