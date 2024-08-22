@@ -40,7 +40,9 @@ namespace SoftUni_SpaceBattle
                     Console.WriteLine("This is where battle takes place!");
                     Console.WriteLine();
 
-                    bool isAreaClear = false; // smisli pametniju varijabilu
+                    bool isAreaClear = false; // smisliti pametnije ime za promenljivu
+
+                    // Refactoring -> user input treba da ide u posebnu klasu
 
                     while (!isAreaClear)
                     {
@@ -53,9 +55,13 @@ namespace SoftUni_SpaceBattle
                         while (userInput != '1' && userInput != '2' && userInput != '3');
 
 
+
+
                         switch (userInput)
                         {
                             case '1':
+
+                                // REFAKTORING -> Battle sistem treba da ide u Battle klasu. Ovde je samo zbog postavke.
                                 Console.WriteLine("Player fires a laser");
 
                                 if (playerShip.Laser.IsHit())
@@ -96,6 +102,9 @@ namespace SoftUni_SpaceBattle
 
                         if (isAreaClear == false)
                         {
+
+                            // enemy turn
+                            // REFACTORING -> Ovo treba da bude ista funkcija kao i kada player napada.
                             Console.WriteLine();
                             Console.ForegroundColor = ConsoleColor.DarkMagenta;
                             Console.WriteLine("****  Enemys move ****");
@@ -117,8 +126,6 @@ namespace SoftUni_SpaceBattle
                                     Console.WriteLine($"You lost! Game Over!");
                                     return;
                                 }
-
-
                             }
                             else
                             {
@@ -128,8 +135,6 @@ namespace SoftUni_SpaceBattle
                             Console.ResetColor();
                         }
                     } // while end
-
-
                 }
                 else
                 {
