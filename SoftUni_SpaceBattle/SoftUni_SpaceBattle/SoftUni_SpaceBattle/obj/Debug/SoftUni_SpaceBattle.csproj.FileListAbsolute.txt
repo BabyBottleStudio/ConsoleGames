@@ -1,0 +1,7 @@
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\SoftUni_SpaceBattle\SoftUni_SpaceBattle\SoftUni_SpaceBattle\bin\Debug\SoftUni_SpaceBattle.exe.config
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\SoftUni_SpaceBattle\SoftUni_SpaceBattle\SoftUni_SpaceBattle\bin\Debug\SoftUni_SpaceBattle.exe
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\SoftUni_SpaceBattle\SoftUni_SpaceBattle\SoftUni_SpaceBattle\bin\Debug\SoftUni_SpaceBattle.pdb
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\SoftUni_SpaceBattle\SoftUni_SpaceBattle\SoftUni_SpaceBattle\obj\Debug\SoftUni_SpaceBattle.csproj.AssemblyReference.cache
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\SoftUni_SpaceBattle\SoftUni_SpaceBattle\SoftUni_SpaceBattle\obj\Debug\SoftUni_SpaceBattle.csproj.CoreCompileInputs.cache
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\SoftUni_SpaceBattle\SoftUni_SpaceBattle\SoftUni_SpaceBattle\obj\Debug\SoftUni_SpaceBattle.exe
+Z:\C# Ucenje\MiljanPortfolio\BabyBottle_repos\SoftUni_SpaceBattle\SoftUni_SpaceBattle\SoftUni_SpaceBattle\obj\Debug\SoftUni_SpaceBattle.pdb
